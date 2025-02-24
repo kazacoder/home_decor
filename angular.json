@@ -54,6 +54,20 @@
               ],
               "outputHashing": "all"
             },
+            "home": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.home.ts"
+                }
+              ]
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
@@ -73,6 +87,9 @@
             },
             "development": {
               "browserTarget": "home-decor:build:development"
+            },
+            "home": {
+              "browserTarget": "home-decor:build:home"
             }
           },
           "defaultConfiguration": "development"
