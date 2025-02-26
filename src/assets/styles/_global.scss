@@ -21,7 +21,7 @@ input {
   color: $gray-text-color;
 }
 
-button {
+.button {
   text-align: center;
   padding: 15px;
   background: #456F49;
@@ -38,6 +38,12 @@ button {
     background: gray;
     cursor: not-allowed;
   }
+}
+
+a.button {
+  text-decoration: none;
+  display: inline-block;
+
 }
 
 
