@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable, Subject} from "rxjs";
+import {Observable, Subject, throwError} from "rxjs";
 import {DefaultResponseType} from "../../../types/default-response.type";
 import {LoginResponseType} from "../../../types/login-response.type";
 import {environment} from "../../../environments/environment";
@@ -25,6 +25,22 @@ export class AuthService {
     return this.http.post<DefaultResponseType | LoginResponseType>(environment.api + 'login', {
       email, password, rememberMe
     })
+  }
+
+  signup(email: string, password: string, passwordRepeat: string): Observable<DefaultResponseType | LoginResponseType> {
+    return this.http.post<DefaultResponseType | LoginResponseType>(environment.api + 'signup', {
+      email, password, passwordRepeat
+    })
+  }
+
+  logout(): Observable<DefaultResponseType> {
+    const tokens = this.getTokens()
+    if (tokens && tokens.refreshToken) {
+      return this.http.post<DefaultResponseType>(environment.api + 'logout', {
+        refreshToken: tokens.refreshToken
+      })
+    }
+    throw throwError(() => 'Can not find token')
   }
 
   public getIsLoggedIn() {

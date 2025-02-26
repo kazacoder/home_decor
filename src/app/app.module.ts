@@ -10,7 +10,6 @@ import { MainComponent } from './views/main/main.component';
 import {HttpClientModule} from "@angular/common/http";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule} from "@angular/material/snack-bar";
-import {AuthService} from "./core/auth/auth.service";
 import {MatMenuModule} from "@angular/material/menu";
 
 @NgModule({
