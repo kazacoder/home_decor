@@ -7,6 +7,7 @@ import {CategoryWithTypeType} from "../../../../types/category-with-type.type";
 import {ActiveParamsUtils} from "../../../shared/utils/active-params.utils";
 import {ActiveParamsType} from "../../../../types/active-params.type";
 import {AppliedFilterType} from "../../../../types/applied-filter.type";
+import {debounce, debounceTime, of, timer} from "rxjs";
 
 @Component({
   selector: 'app-catalog',
@@ -27,11 +28,15 @@ export class CatalogComponent implements OnInit {
     {name: 'По убыванию цены', value: 'price-desc'},
   ];
   pages: number[] = [];
+  currentPage: number | null = null
+
 
   constructor(private productService: ProductService,
               private router: Router,
               private categoryService: CategoryService,
-              private activatedRoute: ActivatedRoute) { }
+              private activatedRoute: ActivatedRoute) {
+    this.currentPage = this.activatedRoute.snapshot.queryParams['page']
+  }
 
   ngOnInit(): void {
 
@@ -39,8 +44,29 @@ export class CatalogComponent implements OnInit {
     this.categoryService.getCategoriesWithTypes().subscribe(data => {
       this.categoriesWithTypes = data
 
-      this.activatedRoute.queryParams.subscribe(params => {
+      this.activatedRoute.queryParams
+        // .pipe(
+        //   debounceTime(500),
+        // )
+        .pipe(
+          debounce(ev => {
+            // ToDo add sorting
+            if (+ev['page'] !== this.currentPage) {
+              // console.log(ev['page']);
+              // console.log('curr ' +  this.currentPage)
+              return of({})
+            } else {
+              // console.log('else')
+              return timer(500)
+            }
+
+          }),
+        )
+        .subscribe(params => {
         this.activeParams = ActiveParamsUtils.processParams(params);
+        if (this.activeParams.page) {
+          this.currentPage = this.activeParams.page;
+        }
 
         this.appliedFilters = [];
 
