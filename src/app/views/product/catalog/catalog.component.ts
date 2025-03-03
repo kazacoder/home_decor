@@ -18,7 +18,14 @@ export class CatalogComponent implements OnInit {
   products: ProductType[] = [];
   categoriesWithTypes: CategoryWithTypeType[] = [];
   activeParams: ActiveParamsType = {types: []};
-  appliedFilters: AppliedFilterType[] = []
+  appliedFilters: AppliedFilterType[] = [];
+  sortingOpen = false;
+  sortingOptions: {name:string, value: string}[] = [
+    {name: 'От А до Я', value: 'az-asc'},
+    {name: 'От Я до А', value: 'az-desc'},
+    {name: 'По возрастанию цены', value: 'price-asc'},
+    {name: 'По убыванию цены', value: 'price-desc'},
+  ];
 
   constructor(private productService: ProductService,
               private router: Router,
@@ -91,7 +98,15 @@ export class CatalogComponent implements OnInit {
     }
 
     this.router.navigate(['/catalog'], {queryParams: this.activeParams}).then();
+  }
 
+  toggleSorting(): void {
+    this.sortingOpen = !this.sortingOpen;
+  }
+
+  sort(value: string): void {
+    this.activeParams.sort = value;
+    this.router.navigate(['/catalog'], {queryParams: this.activeParams}).then();
   }
 
 }

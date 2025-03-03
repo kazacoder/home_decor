@@ -19,7 +19,7 @@
         </div>
 
       </div>
-      <div class="catalog-sorting ">
+      <div class="catalog-sorting" [class.open]="sortingOpen" (click)="toggleSorting()">
         <div class="catalog-sorting-head">
           <span>Сортировать</span>
           <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -29,10 +29,12 @@
           </svg>
         </div>
         <div class="catalog-sorting-body">
-          <div class="catalog-sorting-item">От А до Я</div>
-          <div class="catalog-sorting-item active">От Я до А</div>
-          <div class="catalog-sorting-item">По возрастанию цены</div>
-          <div class="catalog-sorting-item">По убыванию цены</div>
+          <div class="catalog-sorting-item"
+               [class.active]="activeParams.sort && activeParams.sort === sortingOption.value"
+               *ngFor="let sortingOption of sortingOptions"
+               (click)="sort(sortingOption.value)">
+            {{ sortingOption.name }}
+          </div>
         </div>
       </div>
     </div>
