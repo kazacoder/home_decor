@@ -34,14 +34,7 @@ export class CatalogComponent implements OnInit {
               private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.productService.getProducts()
-      .subscribe(data => {
-        this.products = data.items
-        this.pages = [];
-        for (let i = 1; i <= data.pages; i++) {
-          this.pages.push(i)
-        }
-      })
+
 
     this.categoryService.getCategoriesWithTypes().subscribe(data => {
       this.categoriesWithTypes = data
@@ -87,6 +80,16 @@ export class CatalogComponent implements OnInit {
             urlParam: 'diameterTo',
           })
         }
+
+        this.productService.getProducts(this.activeParams)
+          .subscribe(data => {
+            this.products = data.items
+            this.pages = [];
+            for (let i = 1; i <= data.pages; i++) {
+              this.pages.push(i)
+            }
+          })
+
       });
 
     })
