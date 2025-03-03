@@ -4,13 +4,15 @@ import {PasswordRepeatDirective} from "./directives/password-repeat.directive";
 import {RouterModule} from "@angular/router";
 import {ProductCardComponent} from "./components/product-card/product-card.component";
 import {FormsModule} from "@angular/forms";
+import { CategoryFilterComponent } from './components/category-filter/category-filter.component';
 
 
 
 @NgModule({
   declarations: [
     PasswordRepeatDirective,
-    ProductCardComponent
+    ProductCardComponent,
+    CategoryFilterComponent
   ],
   imports: [
     CommonModule,
@@ -19,7 +21,8 @@ import {FormsModule} from "@angular/forms";
   ],
   exports: [
     PasswordRepeatDirective,
-    ProductCardComponent
+    ProductCardComponent,
+    CategoryFilterComponent
   ]
 })
 export class SharedModule { }
