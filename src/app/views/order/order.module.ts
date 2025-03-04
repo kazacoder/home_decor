@@ -5,6 +5,7 @@ import { OrderRoutingModule } from './order-routing.module';
 import { CartComponent } from './cart/cart.component';
 import { OrderComponent } from './order/order.component';
 import {SharedModule} from "../../shared/shared.module";
+import {CarouselModule} from "ngx-owl-carousel-o";
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {SharedModule} from "../../shared/shared.module";
   imports: [
     CommonModule,
     OrderRoutingModule,
-    SharedModule
+    SharedModule,
+    CarouselModule
   ]
 })
 export class OrderModule { }
