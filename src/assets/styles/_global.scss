@@ -54,6 +54,22 @@ input {
     background: gray;
     cursor: not-allowed;
   }
+
+  &.button-transparent {
+    background: transparent;
+    border: 1px solid #6CAC72;
+    color: $green-text-color;
+  }
+
+  &.button-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    span {
+      margin-left: 16px;
+    }
+  }
 }
 
 a.button {
@@ -70,5 +86,30 @@ a.button {
   a {
     text-decoration: none;
     color: $gray-text-color;
+  }
+}
+
+.carousel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 50px;
+
+  .carousel-title {
+    @include head-lora-32;
+  }
+
+  .carousel-arrows {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    a {
+      cursor: pointer;
+
+      &:first-child {
+        margin-right: 30px;
+      }
+    }
   }
 }
