@@ -1,0 +1,24 @@
+.count-selector {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 97px;
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+}
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}

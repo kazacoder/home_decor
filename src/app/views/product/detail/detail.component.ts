@@ -15,6 +15,7 @@ export class DetailComponent implements OnInit {
   products: ProductType[] = [];
   product!: ProductType;
   serverStaticPath = environment.serverStaticPath;
+  count: number = 1;
 
   customOptions: OwlOptions = {
     loop: true,
@@ -59,6 +60,14 @@ export class DetailComponent implements OnInit {
       .subscribe((data: ProductType[]) => {
         this.products = data;
       })
+  }
+
+  updateCount(value: number) {
+    this.count = value;
+  }
+
+  addToCart() {
+    console.log('Добавлено в корзину ' + this.count);
   }
 
 }
