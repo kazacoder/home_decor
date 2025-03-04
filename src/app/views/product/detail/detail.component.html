@@ -1,14 +1,14 @@
-<div class="detail">
+<div class="detail" *ngIf="product">
   <div class="container">
     <div class="detail-title">
-      Сансевиерия трехпучковая Муншайн
+      {{ product.name }}
     </div>
     <div class="detail-product">
-      <div class="detail-image" style="background-image: url('')"></div>
+      <div class="detail-image" style="background-image: url({{ serverStaticPath + product.image }})"></div>
       <div class="detail-info">
         <div class="detail-info-items">
 
-          <div class="detail-info-item">
+          <div class="detail-info-item" *ngIf="product.lightning">
             <div class="detail-info-item-icon">
               <svg width="53" height="55" viewBox="0 0 53 55" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M37.4048 28.1161C37.0958 21.732 32.0783 16.7854 26.0972 16.7854C20.116 16.7854 15.0985 21.732 14.7896 28.1161H13C13.3116 20.8158 19.0562 14.9976 26.0972 14.9976C33.1381 14.9976 38.8828 20.8158 39.1943 28.1161H37.4048Z" fill="#519157"/>
@@ -23,14 +23,12 @@
             <div class="detail-info-item-text">
               <div class="detail-info-item-title">Освещение</div>
               <div class="detail-info-item-description">
-                Сансевиерии понравится прямой свет северных, восточных и западных окон. Также её можно расположить под
-                непрямым или рассеянным освещением южного окна. Следите за листвой — при недостатке света её рост
-                замедлится, а при переизбытке она начнёт желтеть по краям
+                {{ product.lightning }}
               </div>
             </div>
           </div>
 
-          <div class="detail-info-item">
+          <div class="detail-info-item" *ngIf="product.humidity">
             <div class="detail-info-item-icon">
               <svg width="53" height="55" viewBox="0 0 53 55" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <ellipse cx="26.2338" cy="27.5" rx="26.2338" ry="27.5" fill="white"/>
@@ -44,15 +42,11 @@
             </div>
             <div class="detail-info-item-text">
               <div class="detail-info-item-title">Влажность</div>
-              <div class="detail-info-item-description">
-                Используйте для полива отстоявшуюся воду комнатной температуры. Дополнительного повышения влажности
-                воздуха сансевиерия не требует. Удобряйте растение раз в месяц разбавленным раствором подкормки для
-                кактусов и суккулентов. На зимнее время удобрение прекращается
-              </div>
+              <div class="detail-info-item-description">{{ product.humidity }}</div>
             </div>
           </div>
 
-          <div class="detail-info-item">
+          <div class="detail-info-item" *ngIf="product.temperature">
             <div class="detail-info-item-icon">
               <svg width="53" height="55" viewBox="0 0 53 55" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <ellipse cx="26.2338" cy="27.5" rx="26.2338" ry="27.5" fill="white"/>
@@ -63,21 +57,18 @@
             </div>
             <div class="detail-info-item-text">
               <div class="detail-info-item-title">Температура</div>
-              <div class="detail-info-item-description">
-                Держите суккулент в диапазоне 20-29°С. Сансевиерия боится холодов и сквозняков, поэтому не ставьте её
-                на часто проветриваемом месте
-              </div>
+              <div class="detail-info-item-description">{{ product.temperature }}</div>
             </div>
           </div>
 
         </div>
-        <div class="detail-info-param">
+        <div class="detail-info-param" *ngIf="product.height">
           <div class="detail-info-param-name">Высота: </div>
-          <div class="detail-info-param-data">26 см</div>
+          <div class="detail-info-param-data">{{ product.height }} см</div>
         </div>
-        <div class="detail-info-param">
+        <div class="detail-info-param" *ngIf="product.diameter">
           <div class="detail-info-param-name">Диаметр (горшка): </div>
-          <div class="detail-info-param-data">10 см</div>
+          <div class="detail-info-param-data">{{ product.diameter }} см</div>
         </div>
         <div class="detail-info-params">
           <div class="detail-info-params-count">
@@ -85,7 +76,7 @@
             <div class="">...</div>
           </div>
           <div class="detail-info-params-price">
-            50 BYN
+            {{ product.price }} BYN
           </div>
         </div>
         <div class="detail-info-actions">
