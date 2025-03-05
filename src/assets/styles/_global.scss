@@ -44,7 +44,7 @@ input {
   border-radius: 5px;
   box-sizing: border-box;
   cursor: pointer;
-  border: none;
+  border: 1px solid #456F49;
   font-family: Montserrat, sans-serif;
   font-weight: 400;
   font-size: 16px;
@@ -68,6 +68,29 @@ input {
 
     span {
       margin-left: 16px;
+    }
+  }
+
+  &.button-in-cart span {
+    &:first-child {
+      display: block;
+    }
+
+    &:last-child {
+      display: none;
+    }
+  }
+
+  &:hover {
+
+    &.button-in-cart span {
+      &:first-child {
+        display: none;
+      }
+
+      &:last-child {
+        display: block;
+      }
     }
   }
 }

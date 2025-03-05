@@ -8,6 +8,8 @@ import {ActiveParamsUtils} from "../../../shared/utils/active-params.utils";
 import {ActiveParamsType} from "../../../../types/active-params.type";
 import {AppliedFilterType} from "../../../../types/applied-filter.type";
 import {debounce, debounceTime, of, timer} from "rxjs";
+import {CartService} from "../../../shared/services/cart.service";
+import {CartType} from "../../../../types/cart.type";
 
 @Component({
   selector: 'app-catalog',
@@ -29,17 +31,21 @@ export class CatalogComponent implements OnInit {
   ];
   pages: number[] = [];
   currentPage: number | null = null
+  cart: CartType | null = null;
 
 
   constructor(private productService: ProductService,
               private router: Router,
               private categoryService: CategoryService,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private cartService: CartService,) {
     this.currentPage = this.activatedRoute.snapshot.queryParams['page']
   }
 
   ngOnInit(): void {
-
+    this.cartService.getCart().subscribe((data: CartType) => {
+      this.cart = data;
+    });
 
     this.categoryService.getCategoriesWithTypes().subscribe(data => {
       this.categoriesWithTypes = data
@@ -109,18 +115,25 @@ export class CatalogComponent implements OnInit {
 
         this.productService.getProducts(this.activeParams)
           .subscribe(data => {
-            this.products = data.items
             this.pages = [];
             for (let i = 1; i <= data.pages; i++) {
               this.pages.push(i)
             }
+
+            if (this.cart && this.cart.items.length > 0) {
+              this.products = data.items.map(product => {
+                const productInCart = this.cart?.items.find(item => item.product.id === product.id)
+                if (productInCart) {
+                  product.countInCart = productInCart.quantity
+                }
+                return product
+              })
+            } else {
+              this.products = data.items;
+            }
           })
-
       });
-
     })
-
-
   }
 
   removeAppliedFilter(appliedFilter: AppliedFilterType) {

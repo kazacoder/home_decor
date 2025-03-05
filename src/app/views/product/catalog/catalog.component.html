@@ -47,7 +47,7 @@
       </div>
       <div class="catalog-not-found" *ngIf="products.length === 0">Товары не найдены, попробуйте изменить параметры поиска</div>
       <div class="catalog-products">
-        <product-card *ngFor="let product of products" [product]="product"></product-card>
+        <product-card [countInCart]="product.countInCart" *ngFor="let product of products" [product]="product"></product-card>
       </div>
     </div>
 
