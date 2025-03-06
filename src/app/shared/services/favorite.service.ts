@@ -16,4 +16,8 @@ export class FavoriteService {
     return this.http.get<DefaultResponseType | FavoriteType[]>(environment.api + 'favorites');
   }
 
+  removeFavorite(productId: string): Observable<DefaultResponseType> {
+    return this.http.delete<DefaultResponseType>(environment.api + 'favorites', {body: {productId}});
+  }
+
 }

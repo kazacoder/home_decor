@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FavoriteService} from "../../../shared/services/favorite.service";
 import {DefaultResponseType} from "../../../../types/default-response.type";
 import {FavoriteType} from "../../../../types/favorite.type";
@@ -14,7 +14,8 @@ export class FavoriteComponent implements OnInit {
   products: FavoriteType[] = [];
   serverStaticPath = environment.serverStaticPath;
 
-  constructor(private favoriteService: FavoriteService) { }
+  constructor(private favoriteService: FavoriteService) {
+  }
 
   ngOnInit(): void {
     this.favoriteService.getFavorites()
@@ -31,7 +32,12 @@ export class FavoriteComponent implements OnInit {
   }
 
   removeFromFavorites(id: string): void {
-
+    this.favoriteService.removeFavorite(id).subscribe((data: DefaultResponseType) => {
+      if (data.error) {
+        //...
+        throw new Error(data.message)
+      }
+      this.products = this.products.filter(item => item.id !== id);
+    })
   }
-
 }
