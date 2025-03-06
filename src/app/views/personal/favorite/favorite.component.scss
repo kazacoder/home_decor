@@ -1,0 +1,72 @@
+@import "../../../../assets/styles/variables";
+@import "../../../../assets/styles/mixins";
+
+.favorite {
+  padding-top: 50px;
+  padding-bottom: 110px;
+
+  .container {
+
+    .favorite-title {
+      @include head-lora-36;
+      color: $green-text-color;
+      margin-bottom: 35px;
+    }
+
+    .favorite-products {
+
+      .favorite-product {
+        padding-top: 15px;
+        margin-top: 15px;
+        border-top: 1px solid #E7F1E8;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &:first-child {
+          padding-top: 0;
+          margin-top: 0;
+          border-top: none;
+        }
+
+        .favorite-product-image {
+          background-position: center;
+          background-size: cover;
+          height: 100px;
+          width: 100px;
+          border-radius: 5px;
+        }
+
+        .favorite-product-name {
+          margin-left: 24px;
+          font-size: 20px;
+          color: $gray-text-color;
+          line-height: 1.3;
+          width: 567px;
+          margin-right: 20px;
+        }
+
+        .favorite-product-price {
+          width: 100px;
+          margin-right: 193px;
+          font-family: "Montserrat", sans-serif;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 22px;
+          color: $gray-text-color;
+        }
+
+        .favorite-product-action {
+          .button {
+            width: 160px;
+          }
+        }
+
+        .favorite-product-remove {
+          margin-left: 60px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
