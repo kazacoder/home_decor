@@ -5,6 +5,7 @@ import {ProductService} from "../../../shared/services/product.service";
 import {CartService} from "../../../shared/services/cart.service";
 import {CartType} from "../../../../types/cart.type";
 import {environment} from "../../../../environments/environment";
+import {DefaultResponseType} from "../../../../types/default-response.type";
 
 @Component({
   selector: 'app-cart',
@@ -53,10 +54,12 @@ export class CartComponent implements OnInit {
       })
 
     this.cartService.getCart()
-      .subscribe((data: CartType) => {
-        this.cart = data;
+      .subscribe((data: CartType | DefaultResponseType) => {
+        if ((data as DefaultResponseType).error !== undefined) {
+          throw new Error((data as DefaultResponseType).message);
+        }
+        this.cart = data as CartType;
         this.calculateTotal()
-        console.log(this.cart);
       })
   }
 
@@ -72,8 +75,11 @@ export class CartComponent implements OnInit {
   updateCount(id: string, count: number) {
     if (this.cart) {
       this.cartService.updateCart(id, count)
-        .subscribe((data: CartType) => {
-          this.cart = data;
+        .subscribe((data: CartType  | DefaultResponseType) => {
+          if ((data as DefaultResponseType).error !== undefined) {
+            throw new Error((data as DefaultResponseType).message);
+          }
+          this.cart = data as CartType;
           this.calculateTotal();
         });
     }

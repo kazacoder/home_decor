@@ -26,8 +26,6 @@ export class FavoriteComponent implements OnInit {
         }
 
         this.products = data as FavoriteType[];
-        console.log(this.products);
-
       })
   }
 
@@ -38,6 +36,6 @@ export class FavoriteComponent implements OnInit {
         throw new Error(data.message)
       }
       this.products = this.products.filter(item => item.id !== id);
-    })
+    });
   }
 }

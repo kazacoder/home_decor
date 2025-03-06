@@ -3,6 +3,11 @@ import {ProductType} from "../../../../types/product.type";
 import {environment} from "../../../../environments/environment";
 import {CartService} from "../../services/cart.service";
 import {CartType} from "../../../../types/cart.type";
+import {DefaultResponseType} from "../../../../types/default-response.type";
+import {AuthService} from "../../../core/auth/auth.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {FavoriteService} from "../../services/favorite.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'product-card',
@@ -18,7 +23,11 @@ export class ProductCardComponent implements OnInit {
   serverStaticPath = environment.serverStaticPath;
   count: number = 1
 
-  constructor(private cartService: CartService,) {
+  constructor(private cartService: CartService,
+              private authService: AuthService,
+              private _snackBar: MatSnackBar,
+              private favoriteService: FavoriteService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -28,7 +37,10 @@ export class ProductCardComponent implements OnInit {
   }
 
   addToCart() {
-    this.cartService.updateCart(this.product.id, this.count).subscribe((data: CartType) => {
+    this.cartService.updateCart(this.product.id, this.count).subscribe((data: CartType | DefaultResponseType) => {
+      if ((data as DefaultResponseType).error !== undefined) {
+        throw new Error((data as DefaultResponseType).message);
+      }
       this.countInCart = this.count;
     })
   }
@@ -37,17 +49,53 @@ export class ProductCardComponent implements OnInit {
     this.count = value;
     if (this.countInCart) {
       this.cartService.updateCart(this.product.id, this.count)
-        .subscribe((data: CartType) => {
+        .subscribe((data: CartType | DefaultResponseType) => {
+          if ((data as DefaultResponseType).error !== undefined) {
+            throw new Error((data as DefaultResponseType).message);
+          }
           this.countInCart = this.count;
         });
     }
   }
 
   removeFromCart() {
-    this.cartService.updateCart(this.product.id, 0).subscribe((data: CartType) => {
+    this.cartService.updateCart(this.product.id, 0).subscribe((data: CartType | DefaultResponseType) => {
+      if ((data as DefaultResponseType).error !== undefined) {
+        throw new Error((data as DefaultResponseType).message);
+      }
       this.countInCart = 0;
       this.count = 1
     })
+  }
+
+  updateFavorite(): void {
+    if (!this.authService.getIsLoggedIn()) {
+      this._snackBar.open('Необходимо авторизоваться для добавления в избранное')
+      return;
+    }
+
+    if (this.product.isInFavorite) {
+      this.favoriteService.removeFavorite(this.product.id).subscribe((data: DefaultResponseType) => {
+        if (data.error) {
+          //...
+          throw new Error(data.message)
+        }
+        this.product.isInFavorite = false;
+      })
+    } else {
+      this.favoriteService.addFavorite(this.product.id).subscribe(data => {
+        if ((data as DefaultResponseType).error !== undefined) {
+          throw new Error((data as DefaultResponseType).message)
+        }
+        this.product.isInFavorite = true;
+      });
+    }
+  }
+
+  navigate() {
+    if (this.isLight) {
+      this.router.navigate(['/product/' + this.product.url]).then();
+    }
   }
 
 }
