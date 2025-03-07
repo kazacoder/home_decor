@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  // api: "https://longlifeschool.ru:3050/api/",
   api: "http://185.155.17.105:3030/api/",
   serverStaticPath: "http://185.155.17.105:3030/images/products/"
 };
