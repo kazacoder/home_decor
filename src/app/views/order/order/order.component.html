@@ -9,10 +9,12 @@
           <div class="order-form-types">
             <div class="order-form-type-item"
                  (click)="changeDeliveryType(deliveryTypes.delivery)"
-                 [class.active]="deliveryType === deliveryTypes.delivery">Курьером</div>
+                 [class.active]="deliveryType === deliveryTypes.delivery">Курьером
+            </div>
             <div class="order-form-type-item"
                  (click)="changeDeliveryType(deliveryTypes.self)"
-                 [class.active]="deliveryType === deliveryTypes.self">Самовывоз</div>
+                 [class.active]="deliveryType === deliveryTypes.self">Самовывоз
+            </div>
           </div>
         </div>
 
@@ -121,3 +123,23 @@
 
   </div>
 </div>
+
+
+<ng-template #popup>
+  <div class="order-popup">
+    <div class="order-popup-close" (click)="closePopup()">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="1.93562" y1="2.6499" x2="13.9564" y2="14.6707" stroke="#A8ABA7" stroke-linecap="round"/>
+        <line x1="13.9238" y1="2.62971" x2="1.90301" y2="14.6505" stroke="#A8ABA7" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="order-popup-title">
+      Благодарим за заказ!
+    </div>
+    <div class="order-popup-content">
+      <div>Ваш заказ оформлен.</div>
+      <div>Вся информация о заказе была выслана вам на почту.</div>
+      <div>Курьер свяжется с вами за два часа до доставки товара.</div>
+    </div>
+  </div>
+</ng-template>
