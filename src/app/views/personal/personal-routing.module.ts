@@ -7,7 +7,7 @@ import {OrdersComponent} from "./orders/orders.component";
 const routes: Routes = [
   {path: 'favorite', component: FavoriteComponent, title: 'Избранное'},
   {path: 'orders', component: OrdersComponent, title: 'Мои заказы'},
-  {path: 'info', component: InfoComponent, title: 'Инфо'},
+  {path: 'profile', component: InfoComponent, title: 'Инфо'},
 ];
 
 @NgModule({
