@@ -11,6 +11,9 @@ import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {OrderService} from "../../../shared/services/order.service";
 import {OrderType} from "../../../../types/order.type";
 import {HttpErrorResponse} from "@angular/common/http";
+import {UserService} from "../../../shared/services/user.service";
+import {UserInfoType} from "../../../../types/user-info.type";
+import {AuthService} from "../../../core/auth/auth.service";
 
 @Component({
   selector: 'app-order',
@@ -45,11 +48,13 @@ export class OrderComponent implements OnInit {
 
 
   constructor(private cartService: CartService,
+              private userService: UserService,
               private router: Router,
               private _snackBar: MatSnackBar,
               private fb: FormBuilder,
               private dialog: MatDialog,
-              private orderService: OrderService) {
+              private orderService: OrderService,
+              private authService: AuthService) {
 
     this.updateDeliveryTypeValidation()
   }
@@ -67,8 +72,38 @@ export class OrderComponent implements OnInit {
           return;
         }
         this.calculateTotal()
-      })
-  }
+      });
+
+    if (this.authService.getIsLoggedIn()) {
+
+      this.userService.getUserInfo()
+        .subscribe((data: UserInfoType | DefaultResponseType) => {
+          if ((data as DefaultResponseType).error !== undefined) {
+            throw new Error((data as DefaultResponseType).message);
+          }
+
+          const userInfo = data as UserInfoType;
+          const paramsToUpdate = {
+            firstName: userInfo.firstName ? userInfo.firstName : '',
+            lastName: userInfo.lastName ? userInfo.lastName : '',
+            fatherName: userInfo.fatherName ? userInfo.fatherName : '',
+            phone: userInfo.phone ? userInfo.phone : '',
+            paymentType: userInfo.paymentType ? userInfo.paymentType : PaymentType.cashToCourier,
+            email: userInfo.email ? userInfo.email : '',
+            street: userInfo.street ? userInfo.street : '',
+            house: userInfo.house ? userInfo.house : '',
+            entrance: userInfo.entrance ? userInfo.entrance : '',
+            apartment: userInfo.apartment ? userInfo.apartment : '',
+            comment: ''
+          }
+
+          this.orderForm.setValue(paramsToUpdate);
+          if (userInfo.deliveryType) {
+            this.deliveryType = userInfo.deliveryType;
+          }
+        });
+    }
+   }
 
   calculateTotal() {
     this.totalAmount = 0;

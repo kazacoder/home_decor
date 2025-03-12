@@ -1,5 +1,5 @@
 export enum PaymentType {
   cashToCourier = 'cashToCourier',
-  cardOnLine = 'cardOnLine',
+  cardOnLine = 'cardOnline',
   cardToCourier  = 'cardToCourier',
 }

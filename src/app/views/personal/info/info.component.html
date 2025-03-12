@@ -24,13 +24,13 @@
                    && (userInfoForm.get('phone')?.dirty || userInfoForm.get('phone')?.touched) ? 'red': ''}"
                  formControlName="phone">
           <input type="text" class="input" placeholder="E-mail"
-                 [ngStyle]="{'border-color': userInfoForm.get('lastName')?.invalid
+                 [ngStyle]="{'border-color': userInfoForm.get('email')?.invalid
                    && (userInfoForm.get('email')?.dirty || userInfoForm.get('email')?.touched) ? 'red': ''}"
                  formControlName="email">
         </div>
       </div>
 
-      <div class="data-form-block" *ngIf="deliveryType === deliveryTypes.delivery">
+      <div class="data-form-block">
         <div class="data-form-label">Адрес доставки</div>
         <div class="data-form-inputs address-inputs">
           <input type="text" class="input street" placeholder="Улица"
