@@ -24,4 +24,6 @@ export type OrderType =  {
   }[],
   totalAmount?: number,
   status?: OrderStatusType,
+  statusRus?: string,
+  color?: string,
 }
