@@ -3,6 +3,8 @@ import {FavoriteService} from "../../../shared/services/favorite.service";
 import {DefaultResponseType} from "../../../../types/default-response.type";
 import {FavoriteType} from "../../../../types/favorite.type";
 import {environment} from "../../../../environments/environment";
+import {CartService} from "../../../shared/services/cart.service";
+import {CartType} from "../../../../types/cart.type";
 
 @Component({
   selector: 'app-favorite',
@@ -14,7 +16,8 @@ export class FavoriteComponent implements OnInit {
   products: FavoriteType[] = [];
   serverStaticPath = environment.serverStaticPath;
 
-  constructor(private favoriteService: FavoriteService) {
+  constructor(private favoriteService: FavoriteService,
+              private cartService: CartService,) {
   }
 
   ngOnInit(): void {
@@ -26,6 +29,27 @@ export class FavoriteComponent implements OnInit {
         }
 
         this.products = data as FavoriteType[];
+
+
+        this.cartService.getCart().subscribe((cartData: CartType | DefaultResponseType) => {
+          if ((cartData as DefaultResponseType).error !== undefined) {
+            throw new Error((cartData as DefaultResponseType).message);
+          }
+
+          const cartDataResponse = cartData as CartType
+
+          if (cartDataResponse) {
+            this.products.map(product => {
+              const productInCart = cartDataResponse.items.find(item => item.product.id === product.id);
+              if (productInCart) {
+                product.countInCart = productInCart.quantity;
+              }
+              return product
+            })
+          }
+        });
+
+
       })
   }
 
@@ -37,5 +61,38 @@ export class FavoriteComponent implements OnInit {
       }
       this.products = this.products.filter(item => item.id !== id);
     });
+  }
+
+  addToCart(id: string): void {
+    this.cartService.updateCart(id, 1)
+      .subscribe((data: CartType | DefaultResponseType) => {
+        if ((data as DefaultResponseType).error !== undefined) {
+          throw new Error((data as DefaultResponseType).message);
+        }
+        this.products.filter(item => item.id === id)[0].countInCart = 1;
+      })
+  }
+
+  removeFromCart(id: string): void {
+    this.cartService.updateCart(id, 0).subscribe((data: CartType | DefaultResponseType) => {
+      if ((data as DefaultResponseType).error !== undefined) {
+        throw new Error((data as DefaultResponseType).message);
+      }
+      this.products.filter(item => item.id === id)[0].countInCart = 0;
+    })
+  }
+
+  updateCount(id: string, value: number) {
+    this.products.map(product => {
+      if (product.countInCart) {
+        this.cartService.updateCart(id, value)
+          .subscribe((data: CartType | DefaultResponseType) => {
+            if ((data as DefaultResponseType).error !== undefined) {
+              throw new Error((data as DefaultResponseType).message);
+            }
+          });
+      }
+      return product;
+    })
   }
 }

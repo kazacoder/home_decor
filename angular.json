@@ -71,6 +71,20 @@
                 }
               ]
             },
+            "remote": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.remote.ts"
+                }
+              ]
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
@@ -93,6 +107,9 @@
             },
             "home": {
               "browserTarget": "home-decor:build:home"
+            },
+            "remote": {
+              "browserTarget": "home-decor:build:remote"
             }
           },
           "defaultConfiguration": "development"
