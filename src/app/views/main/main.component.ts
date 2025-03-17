@@ -3,6 +3,10 @@ import {ProductService} from "../../shared/services/product.service";
 import {Router} from "@angular/router";
 import {ProductType} from "../../../types/product.type";
 import {OwlOptions} from "ngx-owl-carousel-o";
+import {DefaultResponseType} from "../../../types/default-response.type";
+import {FavoriteType} from "../../../types/favorite.type";
+import {FavoriteService} from "../../shared/services/favorite.service";
+import {AuthService} from "../../core/auth/auth.service";
 
 @Component({
   selector: 'app-main',
@@ -101,13 +105,35 @@ export class MainComponent implements OnInit {
   ]
 
   constructor(private productService: ProductService,
-              private router: Router,) { }
+              private router: Router,
+              private favoriteService: FavoriteService,
+              private authService: AuthService,) { }
 
   ngOnInit(): void {
     this.productService.getBestProducts()
       .subscribe((data: ProductType[]) => {
         this.products = data;
-      })
-  }
+        if (this.authService.getIsLoggedIn()) {
+          this.favoriteService.getFavorites()
+            .subscribe(
+              {
+                next: (data: DefaultResponseType | FavoriteType[]) => {
+                  if ((data as DefaultResponseType).error !== undefined) {
+                    const error = (data as DefaultResponseType).message;
+                    throw new Error(error);
+                  }
+                  let favoriteProducts = data as FavoriteType[];
+                  this.products = this.products.map(product => {
+                    if (favoriteProducts.find(item => item.id === product.id)) {
+                      product.isInFavorite = true;
+                    }
+                    return product;
+                  });
+                }
+              }
+            )
+        }
 
+      });
+  }
 }

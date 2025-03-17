@@ -22,6 +22,7 @@ export class ProductCardComponent implements OnInit {
 
   serverStaticPath = environment.serverStaticPath;
   count: number = 1
+  isLoggedIn: boolean = false;
 
   constructor(private cartService: CartService,
               private authService: AuthService,
@@ -34,6 +35,7 @@ export class ProductCardComponent implements OnInit {
     if (this.countInCart) {
       this.count = this.countInCart;
     }
+    this.isLoggedIn = this.authService.getIsLoggedIn()
   }
 
   addToCart() {
