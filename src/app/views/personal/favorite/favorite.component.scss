@@ -47,7 +47,9 @@
           background-size: cover;
           height: 100px;
           width: 100px;
+          min-width: 100px;
           border-radius: 5px;
+          cursor: pointer;
         }
 
         .favorite-product-name {
@@ -57,11 +59,13 @@
           line-height: 1.3;
           width: 567px;
           margin-right: 20px;
+          cursor: pointer;
         }
 
         .favorite-product-price {
           width: 100px;
-          margin-right: 193px;
+          //margin-right: 193px;
+          margin-right: 81px;
           font-family: "Montserrat", sans-serif;
           font-style: normal;
           font-weight: 600;
@@ -70,6 +74,11 @@
         }
 
         .favorite-product-action {
+          width: 272px;
+          display: flex;
+          align-items: center;
+          justify-content: end;
+          gap: 15px;
           .button {
             width: 160px;
           }
