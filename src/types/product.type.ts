@@ -7,7 +7,7 @@ export type ProductType = {
   humidity: string,
   temperature: string,
   height: number,
-  diameter: 26,
+  diameter: number,
   url: string,
   type: {
     id: string,
