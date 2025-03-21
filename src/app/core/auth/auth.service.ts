@@ -24,23 +24,23 @@ export class AuthService {
   login(email: string, password: string, rememberMe: boolean): Observable<DefaultResponseType | LoginResponseType> {
     return this.http.post<DefaultResponseType | LoginResponseType>(environment.api + 'login', {
       email, password, rememberMe
-    })
+    });
   }
 
   signup(email: string, password: string, passwordRepeat: string): Observable<DefaultResponseType | LoginResponseType> {
     return this.http.post<DefaultResponseType | LoginResponseType>(environment.api + 'signup', {
       email, password, passwordRepeat
-    })
+    });
   }
 
   logout(): Observable<DefaultResponseType> {
-    const tokens = this.getTokens()
+    const tokens = this.getTokens();
     if (tokens && tokens.refreshToken) {
       return this.http.post<DefaultResponseType>(environment.api + 'logout', {
         refreshToken: tokens.refreshToken
-      })
+      });
     }
-    throw throwError(() => 'Can not find token')
+    throw throwError(() => 'Can not find token');
   }
 
   public getIsLoggedIn() {
@@ -51,21 +51,21 @@ export class AuthService {
     localStorage.setItem(this.accessTokenKey, accessToken);
     localStorage.setItem(this.refreshTokenKey, refreshToken);
     this.isLogged = true;
-    this.isLogged$.next(true)
+    this.isLogged$.next(true);
   }
 
   public removeTokens(): void {
     localStorage.removeItem(this.accessTokenKey);
     localStorage.removeItem(this.refreshTokenKey);
     this.isLogged = false;
-    this.isLogged$.next(false)
+    this.isLogged$.next(false);
   }
 
   public getTokens(): { accessToken: string | null, refreshToken: string | null } {
     return {
       accessToken: localStorage.getItem(this.accessTokenKey),
       refreshToken: localStorage.getItem(this.refreshTokenKey)
-    }
+    };
   }
 
   get userId(): string | null {
@@ -85,9 +85,9 @@ export class AuthService {
     if (tokens && tokens.refreshToken) {
       return this.http.post<DefaultResponseType | LoginResponseType>(environment.api + 'refresh', {
         refreshToken: tokens.refreshToken
-      })
+      });
     }
-    throw throwError(() => 'Can not find token')
+    throw throwError(() => 'Can not find token');
   }
 
 }

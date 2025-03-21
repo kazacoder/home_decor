@@ -9,7 +9,7 @@ describe('cart service', () => {
   let cartService: CartService;
   const countValue = 3;
   // let valueServiceSpy: jasmine.SpyObj<HttpClient>
-  let httpServiceSpy: jasmine.SpyObj<HttpClient>
+  let httpServiceSpy: jasmine.SpyObj<HttpClient>;
 
   beforeEach(() => {
 
@@ -41,6 +41,6 @@ describe('cart service', () => {
       expect(httpServiceSpy.get).toHaveBeenCalledOnceWith(environment.api + 'cart', {withCredentials: true});
       done();
     });
-  })
+  });
 
 });

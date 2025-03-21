@@ -16,7 +16,7 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    this.loaderService.show()
+    this.loaderService.show();
 
     const tokens = this.authService.getTokens();
     if (tokens && tokens.accessToken) {
@@ -27,7 +27,7 @@ export class AuthInterceptor implements HttpInterceptor {
         .pipe(
           catchError((error: HttpErrorResponse) => {
             if (error.status === 401 && !authReq.url.includes('/login') && !authReq.url.includes('/refresh')) {
-              return this.handle401Error(authReq, next)
+              return this.handle401Error(authReq, next);
             }
             return throwError(() => error);
           }),
@@ -46,13 +46,13 @@ export class AuthInterceptor implements HttpInterceptor {
         switchMap((result: DefaultResponseType | LoginResponseType) => {
           let error = '';
           if ((result as DefaultResponseType).error !== undefined) {
-            error = (result as DefaultResponseType).message
+            error = (result as DefaultResponseType).message;
           }
 
-          const refreshResult = result as LoginResponseType
+          const refreshResult = result as LoginResponseType;
 
           if (!refreshResult.accessToken || !refreshResult.refreshToken || !refreshResult.userId) {
-            error = 'Ошибка авторизации'
+            error = 'Ошибка авторизации';
           }
 
           if (error) {
@@ -65,13 +65,13 @@ export class AuthInterceptor implements HttpInterceptor {
             headers: req.headers.set('x-access-token', refreshResult.accessToken),
           });
 
-          return next.handle(authReq)
+          return next.handle(authReq);
         }),
         catchError(error => {
           this.authService.removeTokens();
           this.router.navigate(['/']).then();
           return throwError(() => error);
         })
-      )
+      );
   }
 }

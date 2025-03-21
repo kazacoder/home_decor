@@ -37,7 +37,7 @@ describe('count selector', () => {
     countSelectorComponent.onCountChange.subscribe(newValue => {
       expect(newValue).toBe(2);
       done();
-    })
+    });
     countSelectorComponent.increaseCount();
   });
 
@@ -46,7 +46,7 @@ describe('count selector', () => {
     countSelectorComponent.onCountChange.subscribe(newValue => {
       expect(newValue).toBe(2);
       done();
-    })
+    });
     countSelectorComponent.decreaseCount();
   });
 

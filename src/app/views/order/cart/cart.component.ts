@@ -43,7 +43,7 @@ export class CartComponent implements OnInit {
     },
     nav: false,
     margin: 24
-  }
+  };
   constructor(private productService: ProductService,
               private cartService: CartService,) { }
 
@@ -51,7 +51,7 @@ export class CartComponent implements OnInit {
     this.productService.getBestProducts()
       .subscribe((data: ProductType[]) => {
         this.extraProducts = data;
-      })
+      });
 
     this.cartService.getCart()
       .subscribe((data: CartType | DefaultResponseType) => {
@@ -59,8 +59,8 @@ export class CartComponent implements OnInit {
           throw new Error((data as DefaultResponseType).message);
         }
         this.cart = data as CartType;
-        this.calculateTotal()
-      })
+        this.calculateTotal();
+      });
   }
 
   calculateTotal() {
@@ -69,7 +69,7 @@ export class CartComponent implements OnInit {
     this.cart?.items.forEach(item => {
       this.totalCount += item.quantity;
       this.totalAmount += item.quantity * item.product.price;
-    })
+    });
   }
 
   updateCount(id: string, count: number) {

@@ -14,10 +14,10 @@ export class UserService {
   }
 
   getUserInfo(): Observable<DefaultResponseType | UserInfoType> {
-    return this.http.get<DefaultResponseType | UserInfoType>(environment.api + 'user')
+    return this.http.get<DefaultResponseType | UserInfoType>(environment.api + 'user');
   }
 
   updateUserInfo(params: UserInfoType): Observable<DefaultResponseType> {
-    return this.http.post<DefaultResponseType>(environment.api + 'user', params)
+    return this.http.post<DefaultResponseType>(environment.api + 'user', params);
   }
 }

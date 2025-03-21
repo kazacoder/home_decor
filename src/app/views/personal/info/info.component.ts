@@ -53,7 +53,7 @@ export class InfoComponent implements OnInit {
           house: userInfo.house ? userInfo.house : '',
           entrance: userInfo.entrance ? userInfo.entrance : '',
           apartment: userInfo.apartment ? userInfo.apartment : '',
-        }
+        };
 
         this.userInfoForm.setValue(paramsToUpdate);
         if (userInfo.deliveryType) {
@@ -75,31 +75,31 @@ export class InfoComponent implements OnInit {
         email: this.userInfoForm.value.email,
         deliveryType: this.deliveryType,
         paymentType: this.userInfoForm.value.paymentType,
-      }
+      };
 
       if (this.userInfoForm.value.firstName) {
-        paramObject.firstName = this.userInfoForm.value.firstName
+        paramObject.firstName = this.userInfoForm.value.firstName;
       }
       if (this.userInfoForm.value.lastName) {
-        paramObject.lastName = this.userInfoForm.value.lastName
+        paramObject.lastName = this.userInfoForm.value.lastName;
       }
       if (this.userInfoForm.value.fatherName) {
-        paramObject.fatherName = this.userInfoForm.value.fatherName
+        paramObject.fatherName = this.userInfoForm.value.fatherName;
       }
       if (this.userInfoForm.value.phone) {
-        paramObject.phone = this.userInfoForm.value.phone
+        paramObject.phone = this.userInfoForm.value.phone;
       }
       if (this.userInfoForm.value.street) {
-        paramObject.street = this.userInfoForm.value.street
+        paramObject.street = this.userInfoForm.value.street;
       }
       if (this.userInfoForm.value.house) {
-        paramObject.house = this.userInfoForm.value.house
+        paramObject.house = this.userInfoForm.value.house;
       }
       if (this.userInfoForm.value.entrance) {
-        paramObject.entrance = this.userInfoForm.value.entrance
+        paramObject.entrance = this.userInfoForm.value.entrance;
       }
       if (this.userInfoForm.value.apartment) {
-        paramObject.apartment = this.userInfoForm.value.apartment
+        paramObject.apartment = this.userInfoForm.value.apartment;
       }
 
       this.userService.updateUserInfo(paramObject)
@@ -117,10 +117,10 @@ export class InfoComponent implements OnInit {
             if (errorResponse.error && errorResponse.error.message) {
               this._snackBar.open(errorResponse.error.message);
             } else {
-              this._snackBar.open('Ошибка сохранения')
+              this._snackBar.open('Ошибка сохранения');
             }
           }
-        })
+        });
     }
   }
 

@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit {
               private router: Router,
               private cartService: CartService,
               private productService: ProductService,) {
-    this.isLogged = this.authService.getIsLoggedIn()
+    this.isLogged = this.authService.getIsLoggedIn();
   }
 
   ngOnInit(): void {
@@ -48,11 +48,11 @@ export class HeaderComponent implements OnInit {
                 this.products = data;
                 this.showedSearch = true;
                 console.log(data);
-              })
+              });
           } else {
-            this.products = []
+            this.products = [];
           }
-      })
+      });
 
     this.authService.isLogged$.subscribe((isLoggedIn: boolean) => {
       this.isLogged = isLoggedIn;
@@ -60,23 +60,23 @@ export class HeaderComponent implements OnInit {
 
     this.cartService.count$.subscribe((count: number) => {
       this.count = count;
-    })
+    });
 
     this.cartService.getCartCount().subscribe((data) => {
       if ((data as DefaultResponseType).error !== undefined) {
         throw new Error((data as DefaultResponseType).message);
       }
       this.count = (data as { count: number }).count;
-    })
+    });
   }
 
   logout(): void {
     this.authService.logout().subscribe({
       next: () => {
-        this.doLogout()
+        this.doLogout();
       },
       error: () => {
-        this.doLogout()
+        this.doLogout();
       }
     });
   }
@@ -106,7 +106,7 @@ export class HeaderComponent implements OnInit {
   selectProduct(url: string): void {
     this.router.navigate(['/product/' + url]).then();
     // this.searchValue = '';
-    this.searchField.setValue('')
+    this.searchField.setValue('');
     this.products = [];
   }
 

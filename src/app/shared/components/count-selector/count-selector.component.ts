@@ -21,7 +21,7 @@ export class CountSelectorComponent implements OnInit {
   decreaseCount(): void {
     if (this.count > 1) {
       this.count--;
-      this.countChange()
+      this.countChange();
     }
   }
 

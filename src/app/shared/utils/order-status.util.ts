@@ -7,17 +7,17 @@ export class OrderStatusUtil {
 
     switch (status) {
       case OrderStatusType.delivery:
-        name = 'Доставка'
+        name = 'Доставка';
         break;
       case OrderStatusType.canceled:
-        name = 'Отменен'
+        name = 'Отменен';
         color = '#FF7575';
         break;
       case OrderStatusType.pending:
-        name = 'Обработка'
+        name = 'Обработка';
         break;
       case OrderStatusType.success:
-        name = 'Выполнен'
+        name = 'Выполнен';
         color = '#B6D5B9';
         break;
     }

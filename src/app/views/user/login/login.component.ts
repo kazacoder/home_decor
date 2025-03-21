@@ -38,12 +38,12 @@ export class LoginComponent implements OnInit {
         next: (data: LoginResponseType | DefaultResponseType) => {
           let error = null;
           if ((data as DefaultResponseType).error !== undefined) {
-            error = (data as DefaultResponseType).message
+            error = (data as DefaultResponseType).message;
           }
 
           const loginResponse = (data as LoginResponseType);
           if (!loginResponse.accessToken || !loginResponse.refreshToken || !loginResponse.userId) {
-            error = 'Ошибка авторизации'
+            error = 'Ошибка авторизации';
           }
 
           if (error) {
@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
             this._snackBar.open('Ошибка авторизации');
           }
         }
-      })
+      });
     }
   }
 }

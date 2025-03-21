@@ -6,13 +6,13 @@ describe('loader service', () => {
 
   beforeEach(() => {
     loaderService = new LoaderService();
-  })
+  });
 
   it('should emit true value for showing loader', (done: DoneFn) => {
     loaderService.isShowed$.subscribe(value => {
       expect(value).toBe(true);
       done();
-    })
+    });
     loaderService.show();
   });
 
@@ -20,7 +20,7 @@ describe('loader service', () => {
     loaderService.isShowed$.subscribe(value => {
       expect(value).toBe(false);
       done();
-    })
+    });
     loaderService.hide();
   });
 

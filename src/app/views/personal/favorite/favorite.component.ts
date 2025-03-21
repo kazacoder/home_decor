@@ -36,7 +36,7 @@ export class FavoriteComponent implements OnInit {
             throw new Error((cartData as DefaultResponseType).message);
           }
 
-          const cartDataResponse = cartData as CartType
+          const cartDataResponse = cartData as CartType;
 
           if (cartDataResponse) {
             this.products.map(product => {
@@ -44,20 +44,20 @@ export class FavoriteComponent implements OnInit {
               if (productInCart) {
                 product.countInCart = productInCart.quantity;
               }
-              return product
-            })
+              return product;
+            });
           }
         });
 
 
-      })
+      });
   }
 
   removeFromFavorites(id: string): void {
     this.favoriteService.removeFavorite(id).subscribe((data: DefaultResponseType) => {
       if (data.error) {
         //...
-        throw new Error(data.message)
+        throw new Error(data.message);
       }
       this.products = this.products.filter(item => item.id !== id);
     });
@@ -70,7 +70,7 @@ export class FavoriteComponent implements OnInit {
           throw new Error((data as DefaultResponseType).message);
         }
         this.products.filter(item => item.id === id)[0].countInCart = 1;
-      })
+      });
   }
 
   removeFromCart(id: string): void {
@@ -79,7 +79,7 @@ export class FavoriteComponent implements OnInit {
         throw new Error((data as DefaultResponseType).message);
       }
       this.products.filter(item => item.id === id)[0].countInCart = 0;
-    })
+    });
   }
 
   updateCount(id: string, value: number) {
@@ -93,6 +93,6 @@ export class FavoriteComponent implements OnInit {
           });
       }
       return product;
-    })
+    });
   }
 }

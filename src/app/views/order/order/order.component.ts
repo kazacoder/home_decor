@@ -44,7 +44,7 @@ export class OrderComponent implements OnInit {
     entrance: [''],
     apartment: [''],
     comment: [''],
-  })
+  });
 
 
   constructor(private cartService: CartService,
@@ -56,7 +56,7 @@ export class OrderComponent implements OnInit {
               private orderService: OrderService,
               private authService: AuthService) {
 
-    this.updateDeliveryTypeValidation()
+    this.updateDeliveryTypeValidation();
   }
 
   ngOnInit(): void {
@@ -67,11 +67,11 @@ export class OrderComponent implements OnInit {
         }
         this.cart = data as CartType;
         if (!this.cart || (this.cart && this.cart.items.length === 0)) {
-          this._snackBar.open('Корзина пуста')
+          this._snackBar.open('Корзина пуста');
           this.router.navigate(['/']).then();
           return;
         }
-        this.calculateTotal()
+        this.calculateTotal();
       });
 
     if (this.authService.getIsLoggedIn()) {
@@ -95,7 +95,7 @@ export class OrderComponent implements OnInit {
             entrance: userInfo.entrance ? userInfo.entrance : '',
             apartment: userInfo.apartment ? userInfo.apartment : '',
             comment: ''
-          }
+          };
 
           this.orderForm.setValue(paramsToUpdate);
           if (userInfo.deliveryType) {
@@ -111,7 +111,7 @@ export class OrderComponent implements OnInit {
     this.cart?.items.forEach(item => {
       this.totalCount += item.quantity;
       this.totalAmount += item.quantity * item.product.price;
-    })
+    });
   }
 
   changeDeliveryType(type: DeliveryType) {
@@ -131,8 +131,8 @@ export class OrderComponent implements OnInit {
       this.orderForm.get('entrance')?.setValue('');
       this.orderForm.get('apartment')?.setValue('');
     }
-    this.orderForm.get('street')?.updateValueAndValidity()
-    this.orderForm.get('house')?.updateValueAndValidity()
+    this.orderForm.get('street')?.updateValueAndValidity();
+    this.orderForm.get('house')?.updateValueAndValidity();
   }
 
   createOrder(): void {
@@ -147,25 +147,25 @@ export class OrderComponent implements OnInit {
         phone: this.orderForm.value.phone,
         paymentType: this.orderForm.value.paymentType,
         email: this.orderForm.value.email,
-      }
+      };
 
       if (this.deliveryType === DeliveryType.delivery) {
         if (this.orderForm.value.street) {
-          paramsObject.street = this.orderForm.value.street
+          paramsObject.street = this.orderForm.value.street;
         }
         if (this.orderForm.value.house) {
-          paramsObject.house = this.orderForm.value.house
+          paramsObject.house = this.orderForm.value.house;
         }
         if (this.orderForm.value.entrance) {
-          paramsObject.entrance = this.orderForm.value.entrance
+          paramsObject.entrance = this.orderForm.value.entrance;
         }
         if (this.orderForm.value.apartment) {
-          paramsObject.apartment = this.orderForm.value.apartment
+          paramsObject.apartment = this.orderForm.value.apartment;
         }
       }
 
       if (this.orderForm.value.comment) {
-        paramsObject.comment = this.orderForm.value.comment
+        paramsObject.comment = this.orderForm.value.comment;
       }
 
       this.orderService.createOrder(paramsObject)
@@ -178,19 +178,19 @@ export class OrderComponent implements OnInit {
             this.dialogRef.backdropClick().subscribe(() => {
               this.router.navigate(['/']).then();
             });
-            this.cartService.setCount(0)
+            this.cartService.setCount(0);
           },
           error: (errorResponse: HttpErrorResponse) => {
             if (errorResponse.error && errorResponse.error.message) {
               this._snackBar.open(errorResponse.error.message);
             } else {
-              this._snackBar.open('Ошибка заказа')
+              this._snackBar.open('Ошибка заказа');
             }
           }
-        })
+        });
     } else {
-      this.orderForm.markAllAsTouched()
-      this._snackBar.open('Заполните обязательные поля')
+      this.orderForm.markAllAsTouched();
+      this._snackBar.open('Заполните обязательные поля');
     }
   }
 

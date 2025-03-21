@@ -13,7 +13,7 @@ describe('product card', () => {
 
   let productCardComponent: ProductCardComponent;
   let fixture: ComponentFixture<ProductCardComponent>;
-  let product: ProductType
+  let product: ProductType;
 
   beforeEach(() => {
     const cartServiceSpy = jasmine.createSpyObj("CartService", ['updateCart']);
@@ -68,7 +68,7 @@ describe('product card', () => {
   });
 
   it('should call removeFromCart with count 0', () => {
-    let cartServiceSpy = TestBed.inject(CartService) as jasmine.SpyObj<CartService>
+    let cartServiceSpy = TestBed.inject(CartService) as jasmine.SpyObj<CartService>;
     cartServiceSpy.updateCart.and.returnValue(of({
         items: [
           {

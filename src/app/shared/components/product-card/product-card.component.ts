@@ -21,7 +21,7 @@ export class ProductCardComponent implements OnInit {
   @Input() countInCart: number | undefined = 0;
 
   serverStaticPath = environment.serverStaticPath;
-  count: number = 1
+  count: number = 1;
   isLoggedIn: boolean = false;
 
   constructor(private cartService: CartService,
@@ -35,7 +35,7 @@ export class ProductCardComponent implements OnInit {
     if (this.countInCart) {
       this.count = this.countInCart;
     }
-    this.isLoggedIn = this.authService.getIsLoggedIn()
+    this.isLoggedIn = this.authService.getIsLoggedIn();
   }
 
   addToCart() {
@@ -44,7 +44,7 @@ export class ProductCardComponent implements OnInit {
         throw new Error((data as DefaultResponseType).message);
       }
       this.countInCart = this.count;
-    })
+    });
   }
 
   updateCount(value: number) {
@@ -66,13 +66,13 @@ export class ProductCardComponent implements OnInit {
         throw new Error((data as DefaultResponseType).message);
       }
       this.countInCart = 0;
-      this.count = 1
-    })
+      this.count = 1;
+    });
   }
 
   updateFavorite(): void {
     if (!this.authService.getIsLoggedIn()) {
-      this._snackBar.open('Необходимо авторизоваться для добавления в избранное')
+      this._snackBar.open('Необходимо авторизоваться для добавления в избранное');
       return;
     }
 
@@ -80,14 +80,14 @@ export class ProductCardComponent implements OnInit {
       this.favoriteService.removeFavorite(this.product.id).subscribe((data: DefaultResponseType) => {
         if (data.error) {
           //...
-          throw new Error(data.message)
+          throw new Error(data.message);
         }
         this.product.isInFavorite = false;
-      })
+      });
     } else {
       this.favoriteService.addFavorite(this.product.id).subscribe(data => {
         if ((data as DefaultResponseType).error !== undefined) {
-          throw new Error((data as DefaultResponseType).message)
+          throw new Error((data as DefaultResponseType).message);
         }
         this.product.isInFavorite = true;
       });

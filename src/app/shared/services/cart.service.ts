@@ -30,7 +30,7 @@ export class CartService {
       .pipe(
         tap(data => {
           if (!data.hasOwnProperty('error')) {
-            this.setCount((data as { count: number }).count)
+            this.setCount((data as { count: number }).count);
           }
         })
       );
@@ -45,7 +45,7 @@ export class CartService {
             (data as CartType).items.forEach(item => {
               count += item.quantity;
             });
-            this.setCount(count)
+            this.setCount(count);
           }
         })
       );

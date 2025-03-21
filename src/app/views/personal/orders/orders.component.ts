@@ -22,12 +22,12 @@ export class OrdersComponent implements OnInit {
           throw new Error((data as DefaultResponseType).message);
         }
         this.orders = (data as OrderType[]).map(item => {
-          const status = OrderStatusUtil.getStatusAndColor(item.status)
+          const status = OrderStatusUtil.getStatusAndColor(item.status);
           item.statusRus = status.name;
           item.color = status.color;
           return item;
         });
-      })
+      });
   }
 
 }

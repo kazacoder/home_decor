@@ -48,7 +48,7 @@ export class DetailComponent implements OnInit {
     },
     nav: false,
     margin: 24
-  }
+  };
 
   constructor(private productService: ProductService,
               private activatedRoute: ActivatedRoute,
@@ -70,7 +70,7 @@ export class DetailComponent implements OnInit {
               throw new Error((cartData as DefaultResponseType).message);
             }
 
-            const cartDataResponse = cartData as CartType
+            const cartDataResponse = cartData as CartType;
 
             if (cartDataResponse) {
               const productInCart = cartDataResponse.items.find(item => item.product.id === this.product.id);
@@ -105,7 +105,7 @@ export class DetailComponent implements OnInit {
     this.productService.getBestProducts()
       .subscribe((data: ProductType[]) => {
         this.products = data;
-      })
+      });
   }
 
   updateCount(value: number) {
@@ -128,7 +128,7 @@ export class DetailComponent implements OnInit {
           throw new Error((data as DefaultResponseType).message);
         }
         this.product.countInCart = this.count;
-      })
+      });
   }
 
   removeFromCart() {
@@ -137,13 +137,13 @@ export class DetailComponent implements OnInit {
         throw new Error((data as DefaultResponseType).message);
       }
       this.product.countInCart = 0;
-      this.count = 1
-    })
+      this.count = 1;
+    });
   }
 
   updateFavorite(): void {
     if (!this.authService.getIsLoggedIn()) {
-      this._snackBar.open('Необходимо авторизоваться для добавления в избранное')
+      this._snackBar.open('Необходимо авторизоваться для добавления в избранное');
       return;
     }
 
@@ -151,14 +151,14 @@ export class DetailComponent implements OnInit {
       this.favoriteService.removeFavorite(this.product.id).subscribe((data: DefaultResponseType) => {
         if (data.error) {
           //...
-          throw new Error(data.message)
+          throw new Error(data.message);
         }
         this.product.isInFavorite = false;
-      })
+      });
     } else {
       this.favoriteService.addFavorite(this.product.id).subscribe(data => {
         if ((data as DefaultResponseType).error !== undefined) {
-          throw new Error((data as DefaultResponseType).message)
+          throw new Error((data as DefaultResponseType).message);
         }
         this.product.isInFavorite = true;
       });
